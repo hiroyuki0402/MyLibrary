@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "MyLibrary",
     platforms: [
-       .macOS(.v10_15)
+        .iOS(.v17),
+        .macOS(.v10_15)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
