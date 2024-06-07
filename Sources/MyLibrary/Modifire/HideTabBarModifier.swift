@@ -5,6 +5,21 @@ import SwiftUI
 import UIKit
 #endif
 
+/// `HideTabBarModifier`は、タブバーの表示状態を制御するSwiftUIのViewModifier
+/// 指定されたViewに適用することで、タブバーを表示または非表示に設定
+/// `onAppear`内で、アプリケーションのキーウィンドウにある`tabBarController`の
+/// タブバーの表示状態を`isHidden`プロパティに基づいて動的に設定
+/// 使用例:
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         Text("XXXXXXXX")
+///             .modifier(HideTabBarModifier(isHidden: true))
+///     }
+/// }
+/// ```
+/// この例では、`ContentView`に`HideTabBarModifier`を適用し、
+/// タブバーを非表示に設定している(この設定は、`ContentView`が表示される際に有効になる)
 struct HideTabBarModifier: ViewModifier {
     // MARK: - プロパティ
     

@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by SHIRAISHI HIROYUKI on 2024/03/23.
-//
-
 import Foundation
 
 public class Logger {
