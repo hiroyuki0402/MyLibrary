@@ -1,6 +1,7 @@
 import XCTest
 import Combine
 import Foundation
+
 @testable import MyLibrary
 
 final class MyLibraryTests: XCTestCase {
@@ -71,6 +72,37 @@ final class MyLibraryTests: XCTestCase {
 
         /// 非同期テストの期待を待つ
         wait(for: [expectation], timeout: 10.0)
+    }
+    
+    /// `localized`関数を使用して都道府県名が正しくローカライズされるかのテスト
+    func testLocalizedStrings() {
+        /// 東京都の名前を日本語で取得してテスト
+        let tokyoName = localized("Tokyo", tableName: "Prefecture")
+        XCTAssertEqual(tokyoName, "東京都", "ローカライズされた東京都の名前が期待される値と異なります。")
+        
+        /// 北海道の名前を日本語で取得してテスト
+        let hokkaidoName = localized("Hokkaido", tableName: "Prefecture")
+        XCTAssertEqual(hokkaidoName, "北海道", "ローカライズされた北海道の名前が期待される値と異なります。")
+        
+        /// 青森県の名前を日本語で取得してテスト
+        let aomoriName = localized("Aomori", tableName: "Prefecture")
+        XCTAssertEqual(aomoriName, "青森県", "ローカライズされた青森県の名前が期待される値と異なります。")
+        
+        /// ネットワークエラーのメッセージをテスト
+        let networkErrorMessage = localized("ErrorNetworkUnavailable", tableName: "Error")
+        XCTAssertEqual(networkErrorMessage, "ネットワーク接続がありません。", "ローカライズされたネットワークエラーメッセージが期待される値と異なります。")
+        
+        /// サーバー応答なしのエラーメッセージをテスト
+        let serverErrorMessage = localized("ErrorServerNotResponding", tableName: "Error")
+        XCTAssertEqual(serverErrorMessage, "サーバーが応答していません。", "ローカライズされたサーバーエラーメッセージが期待される値と異なります。")
+        
+        /// "OK"ボタンのローカライズをテスト
+        let okButtonTitle = localized("CommonOK", tableName: "Localizable")
+        XCTAssertEqual(okButtonTitle, "OK", "ローカライズされた'OK'ボタンのテキストが期待される値と異なります。")
+        
+        /// "キャンセル"ボタンのローカライズをテスト
+        let cancelButtonTitle = localized("CommonCancel", tableName: "Localizable")
+        XCTAssertEqual(cancelButtonTitle, "キャンセル", "ローカライズされた'キャンセル'ボタンのテキストが期待される値と異なります。")
     }
 }
 
