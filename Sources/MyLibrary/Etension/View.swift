@@ -20,7 +20,7 @@ extension View {
     /// Text("Hello, SwiftUI!")
     ///     .customShadow(color: .gray, radius: 5, x: 5, y: 5)
     /// ```
-    func addShadow(color: Color = .black, radius: CGFloat = 4, x: CGFloat = 0, y: CGFloat = 2) -> some View {
+    public func addShadow(color: Color = .black, radius: CGFloat = 4, x: CGFloat = 0, y: CGFloat = 2) -> some View {
         self.shadow(color: color, radius: radius, x: x, y: y)
     }
 
@@ -43,7 +43,7 @@ extension View {
     /// ```
     ///
     /// - SeeAlso: `HideTabBarModifier`
-    func hideTabBar(_ isHidden: Bool = true) -> some View {
+    public func hideTabBar(_ isHidden: Bool = true) -> some View {
         self.modifier(HideTabBarModifier(isHidden: isHidden))
     }
 
@@ -66,7 +66,7 @@ extension View {
     /// Text("Hello, SwiftUI!")
     ///     .addDivider(color: .gray, width: 100, height: 1)
     /// ```
-    func addDivider(color: Color, width: CGFloat, height: CGFloat? = nil)  -> some View{
+    public func addDivider(color: Color, width: CGFloat, height: CGFloat? = nil)  -> some View {
         Rectangle()
             .fill(color)
             .frame(width: width, height: height)
