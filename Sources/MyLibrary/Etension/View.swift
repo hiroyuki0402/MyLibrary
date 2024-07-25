@@ -91,7 +91,7 @@ extension View {
     /// Text("Hello, SwiftUI!")
     ///     .cornerRadius(10, corners: [.topLeft, .topRight])
     /// ```
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+    func customCornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
     }
 #endif
