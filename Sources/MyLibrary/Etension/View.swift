@@ -1,5 +1,8 @@
 import Foundation
 import SwiftUI
+#if canImport(UIKit)
+import UIKit
+#endif
 
 extension View {
     /// このViewにカスタムな影を追加
@@ -71,4 +74,27 @@ extension View {
             .fill(color)
             .frame(width: width, height: height)
     }
+
+#if canImport(UIKit)
+    /// 特定の角を丸くする
+    ///
+    /// このメソッドにより、Viewの特定の角にのみ丸みを加えることが可能
+    ///
+    /// - Parameters:
+    ///   - radius: 丸みを適用する半径
+    ///   - corners: 丸みを適用する角を指定するUIRectCorner
+    ///
+    /// - Returns: 指定された角が丸くなったView
+    ///
+    /// - Example:
+    /// ```
+    /// Text("Hello, SwiftUI!")
+    ///     .cornerRadius(10, corners: [.topLeft, .topRight])
+    /// ```
+    public func customCornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape(RoundedCorner(radius: radius, corners: corners))
+    }
+#endif
 }
+
+
