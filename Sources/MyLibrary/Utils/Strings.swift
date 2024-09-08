@@ -8,9 +8,11 @@ import Foundation
 ///   - value: キーに対応する文字列が見つからない場合に使用するデフォルト値
 ///   - comment: ローカライズファイル内での翻訳者向けのコメント
 /// - Returns: 指定されたキーに基づいてローカライズされた文字列
-public func localized(_ key: String, tableName: String? = nil, value: String = "", comment: String = "") -> String {
-    let bundle = Bundle.module
-    let string = NSLocalizedString(key, tableName: tableName, bundle: bundle, value: value, comment: comment)
-    return string
+public func localized(_ key: String, tableName: String? = nil, value: String = "", comment: String = "", bundle: Bundle? = nil) -> String {
+    if let bundle = bundle {
+        let string = NSLocalizedString(key, tableName: tableName, bundle: bundle, value: value, comment: comment)
+        return string
+    }
+    return ""
 }
 
