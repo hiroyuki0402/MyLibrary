@@ -6,7 +6,7 @@ import UIKit
 
 
 #if canImport(UIKit)
-extension UIViewController {
+public extension UIViewController {
     /// Storyboardから特定のViewControllerに遷移
     ///
     /// Storyboardの名前とViewControllerのIdentifierを指定して、画面遷移する
