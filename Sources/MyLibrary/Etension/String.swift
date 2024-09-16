@@ -4,7 +4,7 @@ import Foundation
 import UIKit
 #endif
 
-extension String {
+public extension String {
     
     /// 文字列を整数に変換し、指定された範囲内にあるかどうかを判断する
     ///

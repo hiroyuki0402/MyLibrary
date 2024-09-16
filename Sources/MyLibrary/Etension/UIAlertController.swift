@@ -4,7 +4,7 @@ import UIKit
 #endif
 
 #if canImport(UIKit)
-extension UIAlertController {
+public extension UIAlertController {
     /// UIAlertActionを追加する拡張メソッド
     /// - Parameters:
     ///   - title: ボタンのタイトル
