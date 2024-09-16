@@ -1,6 +1,6 @@
 import Foundation
 
-extension UserDefaults {
+public extension UserDefaults {
 
     /// 任意の Codable オブジェクトを UserDefaults に保存
     ///

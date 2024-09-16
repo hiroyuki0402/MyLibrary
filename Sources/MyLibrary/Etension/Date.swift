@@ -1,9 +1,9 @@
 import Foundation
 
-extension Date {
+public extension Date {
 
     /// 日本のデバイス時刻を表すDateFormatterを返す
-    public var  jpDeviceDateFormatter: DateFormatter {
+    var jpDeviceDateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = TimeZone(identifier: "Asia/Tokyo")
@@ -12,7 +12,7 @@ extension Date {
     }
 
     /// デバイスの現在の時刻を表すDateFormatterを返す
-    public var  deviceDateFormatter: DateFormatter {
+    var deviceDateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = .current
@@ -24,7 +24,7 @@ extension Date {
     /// 指定された日付フォーマットに基づいて、日付をフォーマット
     /// - Parameter dateFormat: 日付フォーマット
     /// - Returns: フォーマットされた日付文字列
-    public func makeFormat(dateFormat: JPDateFormat) -> String {
+    func makeFormat(dateFormat: JPDateFormat) -> String {
         let deviceDateFormatter = self.deviceDateFormatter
         deviceDateFormatter.dateFormat = dateFormat.rawValue
         let dateFormatter = deviceDateFormatter.string(from: self)
@@ -79,76 +79,76 @@ extension Date {
     }
 
     /// 年の値を取得するプロパティ
-    public var  year: Int {
+    var year: Int {
         return Calendar.current.component(.year, from: self)
     }
 
     /// 月の値を取得するプロパティ
-    public var  month: Int {
+    var month: Int {
         return Calendar.current.component(.month, from: self)
     }
 
     /// 日の値を取得するプロパティ
-    public var  day: Int {
+    var day: Int {
         return Calendar.current.component(.day, from: self)
     }
 
     /// 昨日の日付を取得するプロパティ
-    public var  yesterday: Date? {
+    var yesterday: Date? {
         let day = Calendar.current.date(byAdding: .day, value: -1, to: self)
         return day
     }
 
     /// 明日の日付を取得するプロパティ
-    public var  tomorrow: Date? {
+    var tomorrow: Date? {
         let day = Calendar.current.date(byAdding: .day, value: 1, to: self)
         return day
     }
 
     /// 1週間前の日付を取得するプロパティ
-    public var  oneWeekBefore: Date? {
+    var oneWeekBefore: Date? {
         let day = Calendar.current.date(byAdding: .day, value: -7, to: self)
         return day
     }
 
     /// 1週間後の日付を取得するプロパティ
-    public var  oneWeekAfter: Date? {
+    var oneWeekAfter: Date? {
         let day = Calendar.current.date(byAdding: .day, value: 7, to: self)
         return day
     }
 
     /// 1ヶ月前の日付を取得するプロパティ
-    public var  oneMonthBefore: Date? {
+    var oneMonthBefore: Date? {
         let day = Calendar.current.date(byAdding: .month, value: -1, to: self)
         return day
     }
 
     /// 1ヶ月後の日付を取得するプロパティ
-    public var  oneMonthAfter: Date? {
+    var oneMonthAfter: Date? {
         let day = Calendar.current.date(byAdding: .month, value: 1, to: self)
         return day
     }
 
     /// 1年前の日付を取得するプロパティ
-    public var  oneYearBefore: Date? {
+    var oneYearBefore: Date? {
         let day = Calendar.current.date(byAdding: .year, value: -1, to: self)
         return day
     }
 
     /// 1年後の日付を取得するプロパティ
-    public var  oneYearAfter: Date? {
+    var oneYearAfter: Date? {
         let day = Calendar.current.date(byAdding: .year, value: 1, to: self)
         return day
     }
 
     /// 月の初日を取得するプロパティ
-    public var  beginningOfTheMonth: Date? {
+    var beginningOfTheMonth: Date? {
         let component = Calendar.current.dateComponents([.year, .month], from: self)
         return Calendar.current.date(from: component)
     }
 
     /// 月の最終日を取得するプロパティ
-    public var  endOfTheMonth: Date? {
+    var endOfTheMonth: Date? {
         if let beginningOfTheMonth = self.beginningOfTheMonth {
             let add = DateComponents(month: 1, day: -1)
             return Calendar.current.date(byAdding: add, to: beginningOfTheMonth)
@@ -157,13 +157,13 @@ extension Date {
     }
 
     /// 年の初日を取得するプロパティ
-    public var  beginningOfTheYear: Date? {
+    var beginningOfTheYear: Date? {
         let component = Calendar.current.dateComponents([.year], from: self)
         return Calendar.current.date(from: component)
     }
 
     /// 年の最終日を取得するプロパティ
-    public var  endOfTheYear: Date? {
+    var endOfTheYear: Date? {
         if let beginningOfTheYear = self.beginningOfTheYear {
             let add = DateComponents(year: 1, day: -1)
             return Calendar.current.date(byAdding: add, to: beginningOfTheYear)
@@ -172,7 +172,7 @@ extension Date {
     }
 
     /// 曜日のインデックス（0: 日曜, 1: 月曜, ...）を取得するプロパティ
-    public var  weekDayIndex: Int? {
+    var weekDayIndex: Int? {
         guard let weekday = (Calendar.current as NSCalendar)
             .components( .weekday, from: self)
             .weekday else { return nil }
@@ -180,7 +180,7 @@ extension Date {
     }
 
     /// 曜日を取得するプロパティ
-    public var  weekDay: WeekDay? {
+    var weekDay: WeekDay? {
         if let weekDayIndex = weekDayIndex, let weekDay = WeekDay(rawValue: weekDayIndex) {
             return weekDay
         }
@@ -188,44 +188,44 @@ extension Date {
     }
 
     /// 日曜日かどうかを判定するプロパティ
-    public var  isSunday: Bool {
+    var isSunday: Bool {
         return weekDay == .sunday
     }
 
     /// 月曜日かどうかを判定するプロパティ
-    public var  isMonday: Bool {
+    var isMonday: Bool {
         return weekDay == .monday
     }
 
     /// 火曜日かどうかを判定するプロパティ
-    public var  isTuesday: Bool {
+    var isTuesday: Bool {
         return weekDay == .tuesday
     }
 
     /// 水曜日かどうかを判定するプロパティ
-    public var  isWednesday: Bool {
+    var isWednesday: Bool {
         return weekDay == .wednesday
     }
 
     /// 木曜日かどうかを判定するプロパティ
-    public var  isThursday: Bool {
+    var isThursday: Bool {
         return weekDay == .thursday
     }
 
     /// 金曜日かどうかを判定するプロパティ
-    public var  isFriday: Bool {
+    var isFriday: Bool {
         return weekDay == .friday
     }
 
     /// 土曜日かどうかを判定するプロパティ
-    public var  isSaturday: Bool {
+    var isSaturday: Bool {
         return weekDay == .saturday
     }
 
     /// 指定秒数前の日付を取得する
     /// - Parameter second: 秒数
     /// - Returns: 指定秒数前の日付
-    public func secondBefore(_ second: Int) -> Date? {
+    func secondBefore(_ second: Int) -> Date? {
         let day = Calendar.current.date(byAdding: .second, value: -second, to: self)
         return day
     }
@@ -233,7 +233,7 @@ extension Date {
     /// 指定秒数後の日付を取得する
     /// - Parameter second: 秒数
     /// - Returns: 指定秒数後の日付
-    public func secondAfter(_ second: Int) -> Date? {
+    func secondAfter(_ second: Int) -> Date? {
         let day = Calendar.current.date(byAdding: .second, value: second, to: self)
         return day
     }
@@ -241,7 +241,7 @@ extension Date {
     /// 指定分前の日付を取得する
     /// - Parameter minute: 分数
     /// - Returns: 指定分前の日付
-    public func minuteBefore(_ minute: Int) -> Date? {
+    func minuteBefore(_ minute: Int) -> Date? {
         let day = Calendar.current.date(byAdding: .minute, value: -minute, to: self)
         return day
     }
@@ -249,7 +249,7 @@ extension Date {
     /// 指定分後の日付を取得する
     /// - Parameter minute: 分数
     /// - Returns: 指定分後の日付
-    public func minuteAfter(_ minute: Int) -> Date? {
+    func minuteAfter(_ minute: Int) -> Date? {
         let day = Calendar.current.date(byAdding: .minute, value: minute, to: self)
         return day
     }
@@ -257,7 +257,7 @@ extension Date {
     /// 指定時間前の日付を取得する
     /// - Parameter hour: 時間
     /// - Returns: 指定時間前の日付
-    public func hourBefore(_ hour: Int) -> Date? {
+    func hourBefore(_ hour: Int) -> Date? {
         let day = Calendar.current.date(byAdding: .hour, value: -hour, to: self)
         return day
     }
@@ -265,13 +265,13 @@ extension Date {
     /// 指定時間後の日付を取得する
     /// - Parameter hour: 時間
     /// - Returns: 指定時間後の日付
-    public func hourAfter(_ hour: Int) -> Date? {
+    func hourAfter(_ hour: Int) -> Date? {
         let day = Calendar.current.date(byAdding: .hour, value: hour, to: self)
         return day
     }
 
     /// 当日の開始時刻を取得する
-    public var  startTime: Date? {
+    var startTime: Date? {
         return Calendar.current.startOfDay(for: self)
     }
 }
