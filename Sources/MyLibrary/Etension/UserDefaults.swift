@@ -122,7 +122,7 @@ public extension UserDefaults {
     ///                     PasswordData(username: "user2", password: "pass456")]
     /// try? saveObjects(passwordList, forKey: Keys.passwordDatas)
     /// ```
-    private func saveObjects<T: Codable>(_ objects: [T], forKey key: String) throws {
+    func saveObjects<T: Codable>(_ objects: [T], forKey key: String) throws {
         let encoder = JSONEncoder()
         do {
             let data = try encoder.encode(objects)
