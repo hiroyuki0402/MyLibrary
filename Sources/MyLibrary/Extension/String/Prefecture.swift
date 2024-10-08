@@ -7,8 +7,8 @@
 
 import Foundation
 
-public extension String {
-     enum Prefecture {
+extension String {
+    public enum Prefecture {
          /// 北海道
          static let hokkaido = "北海道"
 
