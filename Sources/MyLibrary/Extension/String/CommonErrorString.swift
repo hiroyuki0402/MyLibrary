@@ -7,8 +7,8 @@
 
 import Foundation
 
-public extension String {
-    enum ErrorString {
+extension String {
+    public enum ErrorString {
         public enum CommonErrorString {
             // MARK: - 共通
             /// ネットワーク接続がありません。

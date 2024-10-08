@@ -7,8 +7,8 @@
 
 import Foundation
 
-public extension String {
-    enum CommonString {
+extension String {
+    public enum CommonString {
         public enum CommonTitle {
             // MARK: - 共通
 
