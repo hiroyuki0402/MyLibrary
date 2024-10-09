@@ -95,6 +95,18 @@ extension View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
     }
 #endif
+
+    /// `View`に簡単にグラデーションを適用するための拡張
+    /// この拡張を使用することで、線形、放射状、または角度グラデーションをビューの背景に適用
+    /// - Parameters:
+    ///   - type: グラデーションのタイプを指定。(タイプ: `linear`, `radial`, `angular`)
+    ///   - colors: グラデーションに使用する色の配列を指定
+    /// - Returns: 指定されたグラデーションが適用されたビューを返す
+    /// このメソッドはビューに `GradientModifier` を適用することでグラデーションを実現
+    public func gradientBackground(type: GradientModifier.GradientType, colors: [Color]) -> some View {
+        self.modifier(GradientModifier(type: type, colors: colors))
+    }
+
 }
 
 
