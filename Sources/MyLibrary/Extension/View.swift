@@ -99,12 +99,16 @@ extension View {
     /// `View`に簡単にグラデーションを適用するための拡張
     /// この拡張を使用することで、線形、放射状、または角度グラデーションをビューの背景に適用
     /// - Parameters:
-    ///   - type: グラデーションのタイプを指定。(タイプ: `linear`, `radial`, `angular`)
+    ///   - type: グラデーションのタイプを指定。利用可能なタイプは `linear`, `radial`, `angular`
     ///   - colors: グラデーションに使用する色の配列を指定
+    ///   - startPoint: 線形グラデーションの開始点を指定（線形グラデーションのみ適用）
+    ///   - center: 放射状または角度グラデーションの中心点を指定（放射状および角度グラデーション用）
+    ///   - startRadius: 放射状グラデーションの開始半径を指定（放射状グラデーション用）
+    ///   - endRadius: 放射状グラデーションの終了半径を指定（放射状グラデーション用）
     /// - Returns: 指定されたグラデーションが適用されたビューを返す
     /// このメソッドはビューに `GradientModifier` を適用することでグラデーションを実現
-    public func gradientBackground(type: GradientModifier.GradientType, colors: [Color]) -> some View {
-        self.modifier(GradientModifier(type: type, colors: colors))
+    public func gradientBackground(type: GradientModifier.GradientType, colors: [Color], startPoint: UnitPoint = .top, center: UnitPoint = .center, startRadius: CGFloat = 0, endRadius: CGFloat = 200) -> some View {
+        self.modifier(GradientModifier(colors: colors, type: type, startPoint: startPoint, center: center, startRadius: startRadius, endRadius: endRadius))
     }
 
 }

@@ -57,7 +57,7 @@ public extension Date {
     ///                                                            outputLocaleID: .jaJP)
     /// print(formattedDateString) // "2023年12月4日 00時00分"
     /// ```
-    static public func toCustomDateString(from dateString: String,
+    static func toCustomDateString(from dateString: String,
                                    inputFormat: JPDateFormat = .iso8601,
                                    outputFormat: JPDateFormat = .dateOnly,
                                    inputLocaleID: LocaleIdentifier = .enUSPOSIX,
