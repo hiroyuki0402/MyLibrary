@@ -30,6 +30,7 @@ public struct GradientModifier: ViewModifier {
 
     /// 設定値関連
     private var startPoint: UnitPoint = .top
+    private var endPoint: UnitPoint = .bottom
     private var center: UnitPoint = .center
     private var startRadius: CGFloat = 0
     private var endRadius: CGFloat = 200
@@ -42,7 +43,8 @@ public struct GradientModifier: ViewModifier {
     ///   - center: グラデーションの中心点（放射状および角度グラデーション用）
     ///   - startRadius: グラデーションの開始半径（放射状グラデーション用）
     ///   - endRadius: グラデーションの終了半径（放射状グラデーション用）
-    public init(colors: [Color], type: GradientType, startPoint: UnitPoint = .top, center: UnitPoint = .center, startRadius: CGFloat = 0, endRadius: CGFloat = 200) {
+    ///   - endPoint: グラデーションの終了点（線形グラデーション用）
+    public init(colors: [Color], type: GradientType, startPoint: UnitPoint = .top, center: UnitPoint = .center, startRadius: CGFloat = 0, endRadius: CGFloat = 200, endPoint: UnitPoint = .bottom) {
         self.colors = colors
         self.type = type
         self.startPoint = startPoint
@@ -58,7 +60,7 @@ public struct GradientModifier: ViewModifier {
     public func body(content: Content) -> some View {
         switch type {
         case .linear:
-            return AnyView(content.background(LinearGradient(gradient: Gradient(colors: colors), startPoint: startPoint, endPoint: .bottom)))
+            return AnyView(content.background(LinearGradient(gradient: Gradient(colors: colors), startPoint: startPoint, endPoint: endPoint)))
         case .radial:
             return AnyView(content.background(RadialGradient(gradient: Gradient(colors: colors), center: center, startRadius: startRadius, endRadius: endRadius)))
         case .angular:

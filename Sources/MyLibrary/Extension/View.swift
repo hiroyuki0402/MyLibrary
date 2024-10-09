@@ -105,10 +105,10 @@ extension View {
     ///   - center: 放射状または角度グラデーションの中心点を指定（放射状および角度グラデーション用）
     ///   - startRadius: 放射状グラデーションの開始半径を指定（放射状グラデーション用）
     ///   - endRadius: 放射状グラデーションの終了半径を指定（放射状グラデーション用）
+    ///   - endPoint: グラデーションの終了点（線形グラデーション用）
     /// - Returns: 指定されたグラデーションが適用されたビューを返す
-    /// このメソッドはビューに `GradientModifier` を適用することでグラデーションを実現
-    public func gradientBackground(type: GradientModifier.GradientType, colors: [Color], startPoint: UnitPoint = .top, center: UnitPoint = .center, startRadius: CGFloat = 0, endRadius: CGFloat = 200) -> some View {
-        self.modifier(GradientModifier(colors: colors, type: type, startPoint: startPoint, center: center, startRadius: startRadius, endRadius: endRadius))
+    public func gradientBackground(type: GradientModifier.GradientType, colors: [Color], startPoint: UnitPoint = .top, center: UnitPoint = .center, startRadius: CGFloat = 0, endRadius: CGFloat = 200, endPoint: UnitPoint = .bottom) -> some View {
+        self.modifier(GradientModifier(colors: colors, type: type, startPoint: startPoint, center: center, startRadius: startRadius, endRadius: endRadius, endPoint: endPoint))
     }
 
 }
