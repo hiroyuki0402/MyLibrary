@@ -2,7 +2,7 @@ import SwiftUI
 #if canImport(UIKit)
 import UIKit
 
-extension UIColor {
+public extension UIColor {
     /// UIColorをSwiftUIのColorに変換するプロパティ
     ///
     /// このプロパティは、UIKitのUIColorをSwiftUIのColor型に変換
@@ -15,7 +15,7 @@ extension UIColor {
     /// let swiftUIColor = uiColor.toColor
     /// ```
     /// この例では、`UIColor.red` がSwiftUIの `Color.red` として利用可能になる
-    static var toColor: Color {
+    public static var toColor: Color {
         return Color(uicolor: self)
     }
     
@@ -35,7 +35,7 @@ extension UIColor {
     /// let color = UIColor(red: 255, green: 200, blue: 150, alpha: 0.8)
     /// ```
     /// この例では、RGBA(255, 200, 150, 0.8)のUIColorが作成されます。
-    convenience init(red: Int, green: Int, blue: Int, alpha: CGFloat = 1.0) {
+    public convenience init(red: Int, green: Int, blue: Int, alpha: CGFloat = 1.0) {
         assert(red >= 0 && red <= 255, "Invalid red component")
         assert(green >= 0 && green <= 255, "Invalid green component")
         assert(blue >= 0 && blue <= 255, "Invalid blue component")
@@ -54,7 +54,7 @@ extension UIColor {
     /// let color = UIColor(hex: 0xFF5733)
     /// ```
     /// この例では、16進カラーコード0xFF5733に対応するUIColorが作成される
-    convenience init(hex: Int) {
+    public convenience init(hex: Int) {
         self.init(
             red: (hex >> 16) & 0xFF,
             green: (hex >> 8) & 0xFF,
