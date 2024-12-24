@@ -15,7 +15,7 @@ public extension UIColor {
     /// let swiftUIColor = uiColor.toColor
     /// ```
     /// この例では、`UIColor.red` がSwiftUIの `Color.red` として利用可能になる
-    public static var toColor: Color {
+    var toColor: Color {
         return Color(uicolor: self)
     }
     
