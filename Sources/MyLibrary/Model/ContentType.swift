@@ -15,7 +15,7 @@ public enum HTTPMethod {
     case delete
     case put(Data?)
 
-    var name: String {
+    public var name: String {
         switch self {
             case .get:
                 return "GET"
