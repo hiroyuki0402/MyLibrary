@@ -2,11 +2,11 @@ import Foundation
 import Combine
 
 public struct APIResource<T: Codable> {
-    let url: URL?
-    var method: HTTPMethod = .get([])
-    var headers: [String: String]? = nil
-    var modelType: T.Type
-    var normalStatusCode: ClosedRange<Int> = 200...299
+    public let url: URL?
+    public var method: HTTPMethod = .get([])
+    public var headers: [String: String]? = nil
+    public var modelType: T.Type
+    public var normalStatusCode: ClosedRange<Int> = 200...299
 }
 
 public class APIManager {
