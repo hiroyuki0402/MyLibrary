@@ -1,27 +1,35 @@
 import Foundation
 import Combine
 
-public enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
+public struct APIResource<T: Codable> {
+    let url: URL?
+    var method: HTTPMethod = .get([])
+    var headers: [String: String]? = nil
+    var modelType: T.Type
+    var normalStatusCode: ClosedRange<Int> = 200...299
 }
 
 public class APIManager {
     public static let shared = APIManager()
-    public init() { }
+    private let apiSession: APIURLSession
+    private var statusCodeValidator: StatusCodeValidator
+    public init(contentType: ContentType = .json, statusCodeValidator: StatusCodeValidator = StatusCodeValidator()) {
+        self.apiSession = APIURLSession(contentType: contentType)
+        self.statusCodeValidator = statusCodeValidator
+    }
 
     /// 非同期で指定されたURLにHTTPリクエストを送信し、結果をデコードして返す
     /// - Parameters:
     ///   - url: リクエストを送信するURL。nilの場合、関数はnilを返す
     ///   - method: 使用するHTTPメソッド（例：.get, .post）
     ///   - body: HTTPリクエストのボディ
-    ///   - contentType: リクエストのContent-Typeヘッダ。指定がない場合はヘッダを追加しない
+    ///   - contentType: リクエストのContent-Typeヘッダ
     ///   - type: レスポンスデータをデコードする際のモデルの型
-    /// - Returns: 指定された型にデコードされたレスポンスデータ。レスポンスが期待した形式でない場合はエラーを投げる
+    /// - Returns: 指定された型にデコードされたレスポンスデータ
     public func callAPI<T: Codable>(url: URL?, method: HTTPMethod, body: Data? = nil, contentType: ContentType? = nil, type: T.Type) async throws -> T? {
         guard let url = url else { return nil }
         var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
+        request.httpMethod = method.name
 
         if let requestBody = body {
             request.httpBody = requestBody
@@ -41,6 +49,56 @@ public class APIManager {
         return decodedData
     }
 
+    /// 非同期で指定されたURLにHTTPリクエストを送信し、結果をデコードして返す
+    /// - Parameter resource: リクエスト時の各設定
+    /// - Returns: 指定された型にデコードされたレスポンスデータ
+    public func callAPIUsingAsync<T: Codable>(_ resource: APIResource<T>) async throws -> T? {
+        guard let url = resource.url else {
+            throw NetworkError.badURL
+        }
+
+        var request = URLRequest(url: url)
+
+        switch resource.method {
+        case .get(let queryItems):
+            var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+            components?.queryItems = queryItems
+            guard let url = components?.url else {
+                throw NetworkError.badRequest
+            }
+            request.url = url
+
+        case .post(let data), .put(let data):
+            request.httpMethod = resource.method.name
+            request.httpBody = data
+
+        case .delete:
+            request.httpMethod = resource.method.name
+        }
+
+
+        if let headers = resource.headers {
+            for (key, value) in headers {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
+        }
+
+        let (data, response) = try await apiSession.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.invalidResponse
+        }
+
+        try statusCodeValidator.validate(statusCode: httpResponse.statusCode, data: data)
+
+        do {
+            let result = try JSONDecoder().decode(resource.modelType, from: data)
+            return result
+        } catch {
+            throw NetworkError.decodingError(error)
+        }
+
+    }
 
     /// 非同期で指定されたURLにHTTPリクエストを送信し、結果をデコードしてCombineのPublisherとして返す
     /// - Parameters:
@@ -56,7 +114,7 @@ public class APIManager {
            }
 
            var request = URLRequest(url: url)
-           request.httpMethod = method.rawValue
+            request.httpMethod = method.name
 
            if let requestBody = body {
                request.httpBody = requestBody

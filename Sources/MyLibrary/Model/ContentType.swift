@@ -1,10 +1,3 @@
-//
-//  ContentType.swift
-//
-//
-//  Created by SHIRAISHI HIROYUKI on 2024/03/23.
-//
-
 import Foundation
 
 public enum ContentType: String {
@@ -14,4 +7,24 @@ public enum ContentType: String {
     case plainText = "text/plain"
     case html = "text/html"
     case xml = "application/xml"
+}
+
+public enum HTTPMethod {
+    case get([URLQueryItem]?)
+    case post(Data?)
+    case delete
+    case put(Data?)
+
+    var name: String {
+        switch self {
+            case .get:
+                return "GET"
+            case .post:
+                return "POST"
+            case .delete:
+                return "DELETE"
+            case .put:
+                return "PUT"
+        }
+    }
 }
