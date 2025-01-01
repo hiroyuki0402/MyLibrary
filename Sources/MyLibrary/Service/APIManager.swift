@@ -8,7 +8,7 @@ public struct APIResource<T: Codable> {
     public var modelType: T.Type
     public var normalStatusCode: ClosedRange<Int> = 200...299
 
-    public init(url: URL?, method: HTTPMethod, headers: [String : String]? = nil, modelType: T.Type, normalStatusCode: ClosedRange<Int>) {
+    public init(url: URL?, method: HTTPMethod = .get([]), headers: [String : String]? = nil, modelType: T.Type, normalStatusCode: ClosedRange<Int> = 200...299) {
         self.url = url
         self.method = method
         self.headers = headers
