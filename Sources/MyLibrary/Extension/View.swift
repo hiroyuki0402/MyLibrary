@@ -110,6 +110,57 @@ extension View {
     public func gradientBackground(type: GradientModifier.GradientType, colors: [Color], startPoint: UnitPoint = .top, center: UnitPoint = .center, startRadius: CGFloat = 0, endRadius: CGFloat = 200, endPoint: UnitPoint = .bottom) -> some View {
         self.modifier(GradientModifier(colors: colors, type: type, startPoint: startPoint, center: center, startRadius: startRadius, endRadius: endRadius, endPoint: endPoint))
     }
+
+    /// このViewにカスタムスワイプアクションを追加
+    ///
+    /// このメソッドを使用すると、任意のラベルとアクションを伴うカスタマイズ可能なスワイプアクションをViewに追加できる
+    /// スワイプに応じたコンテンツの移動、閾値によるスナップ動作、他のスワイプのリセット機能を備える
+    /// ラベルとして任意のViewを指定可能で、柔軟なデザインを実現
+    ///
+    /// - Parameters:
+    ///   - offset: スワイプによるコンテンツのオフセットを管理するBinding変数
+    ///   - threshold: スワイプが確定するための閾値（デフォルトは100）
+    ///   - activeItem: 現在スワイプ中のアイテムを追跡するBinding変数
+    ///   - id: このアイテムを一意に識別するためのID
+    ///   - onDelete: スワイプアクションに応じて実行される削除処理
+    ///   - label: スワイプアクションのボタンに表示されるカスタムラベル
+    ///
+    /// - Returns: スワイプアクションが追加されたView
+    ///
+    /// - Example:
+    /// ```
+    /// Text("Swipe Me!")
+    ///     .customSwipeAction(
+    ///         offset: $offset,
+    ///         threshold: 120,
+    ///         activeItem: $activeItem,
+    ///         id: "unique_id",
+    ///         onDelete: { print("Deleted") },
+    ///         label: {
+    ///             Image(systemName: "trash")
+    ///                 .foregroundColor(.white)
+    ///         }
+    ///     )
+    /// ```
+    public func customSwipeAction<Label: View>(
+        offset: Binding<CGFloat>,
+        threshold: CGFloat = 100,
+        activeItem: Binding<String?>,
+        id: String,
+        onDelete: @escaping () -> Void,
+        label: @escaping () -> Label
+    ) -> some View {
+
+        self.modifier(SwipeActionModifier(
+            offset: offset,
+            activeItem: activeItem,
+            id: id,
+            threshold: threshold,
+            onDelete: onDelete,
+            label: label
+        ))
+    }
+
 }
 
 

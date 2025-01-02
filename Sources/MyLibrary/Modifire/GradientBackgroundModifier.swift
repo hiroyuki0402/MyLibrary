@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  MyLibrary
-//
-//  Created by SHIRAISHI HIROYUKI on 2024/10/08.
-//
-
 import SwiftUI
 
 /// SwiftUIビューに指定された種類のグラデーションを適用するためのViewModifier

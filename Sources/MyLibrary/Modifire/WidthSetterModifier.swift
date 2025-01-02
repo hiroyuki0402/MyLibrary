@@ -31,12 +31,12 @@ import SwiftUI
 /// }
 /// ```
 /// この例では、`WidthSetterModifier`を使用して、タブの幅をユーザーの操作に応じて動的に調整(選択されたタブは青い下線で強調表示され、非選択のタブは透明な下線が表示される)
-struct WidthSetterModifier: ViewModifier {
+public struct WidthSetterModifier: ViewModifier {
     /// ViewModifierを使用してビューの幅を動的に調整するためのバインディング変数
-    @Binding var width: CGFloat
+    @Binding public var width: CGFloat
     
     /// 幅計算時に考慮するマージン
-    var margin: CGFloat = 0
+    public var margin: CGFloat = 0
 
     // MARK: - ボディ
     /// ViewModifierの本体を構築
@@ -47,7 +47,7 @@ struct WidthSetterModifier: ViewModifier {
     ///
     /// - Parameter content: このModifierが適用される元のView
     /// - Returns: Modifierが適用された後のView
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content
             .background(
                 GeometryReader { geometry in
@@ -66,16 +66,16 @@ struct WidthSetterModifier: ViewModifier {
 }
 
 
-struct ViewWidthKey: PreferenceKey {
+public struct ViewWidthKey: PreferenceKey {
     /// PreferenceKeyで管理されるデフォルトの幅
-    static var defaultValue: CGFloat = 0
-    
+    public static var defaultValue: CGFloat = 0
+
     /// Viewから送られた幅の値を集約し、最大値を取得
     /// 複数のビューからの値を適切に集約して最大のものを選択する
     ///
     /// - Parameter value: 現在の集約値
     /// - Parameter nextValue: 次の値を提供するクロージャ
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+    public static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = max(value, nextValue())
     }
 }
