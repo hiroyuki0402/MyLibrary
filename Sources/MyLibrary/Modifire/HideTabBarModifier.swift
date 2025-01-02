@@ -20,11 +20,11 @@ import UIKit
 /// ```
 /// この例では、`ContentView`に`HideTabBarModifier`を適用し、
 /// タブバーを非表示に設定している(この設定は、`ContentView`が表示される際に有効になる)
-struct HideTabBarModifier: ViewModifier {
+public struct HideTabBarModifier: ViewModifier {
     // MARK: - プロパティ
     
-    var isHidden: Bool
-    
+    public var isHidden: Bool
+
     /// ViewModifierの本体を構築
     ///
     /// `body`関数内で、このModifierが適用されたViewのタブバー表示を設定
@@ -35,7 +35,7 @@ struct HideTabBarModifier: ViewModifier {
     /// - Parameter content: このModifierが適用される元のView
     /// - Returns: Modifierが適用された後のView
     /// - SeeAlso: `View.hideTabBar(_:)`
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content
             .onAppear {
 #if canImport(UIKit)
