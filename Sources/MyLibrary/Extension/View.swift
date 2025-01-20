@@ -69,10 +69,11 @@ extension View {
     /// Text("Hello, SwiftUI!")
     ///     .addDivider(color: .gray, width: 100, height: 1)
     /// ```
-    public func addDivider(color: Color, width: CGFloat, height: CGFloat? = nil)  -> some View {
+    public func addDivider(color: Color, width: CGFloat? = nil, height: CGFloat? = nil, maxWidth: CGFloat? = nil)  -> some View {
         Rectangle()
             .fill(color)
             .frame(width: width, height: height)
+            .frame(maxWidth: maxWidth)
     }
 
 #if canImport(UIKit)
