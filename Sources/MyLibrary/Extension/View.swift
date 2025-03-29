@@ -23,7 +23,12 @@ extension View {
     /// Text("Hello, SwiftUI!")
     ///     .customShadow(color: .gray, radius: 5, x: 5, y: 5)
     /// ```
-    public func addShadow(color: Color = .black, radius: CGFloat = 4, x: CGFloat = 0, y: CGFloat = 2) -> some View {
+    public func addShadow(
+        color: Color = .black,
+        radius: CGFloat = 4,
+        x: CGFloat = 0,
+        y: CGFloat = 2
+    ) -> some View {
         self.shadow(color: color, radius: radius, x: x, y: y)
     }
 
@@ -69,7 +74,12 @@ extension View {
     /// Text("Hello, SwiftUI!")
     ///     .addDivider(color: .gray, width: 100, height: 1)
     /// ```
-    public func addDivider(color: Color, width: CGFloat? = nil, height: CGFloat? = nil, maxWidth: CGFloat? = nil)  -> some View {
+    public func addDivider(
+        color: Color,
+        width: CGFloat? = nil,
+        height: CGFloat? = nil,
+        maxWidth: CGFloat? = nil
+    )  -> some View {
         Rectangle()
             .fill(color)
             .frame(width: width, height: height)
@@ -108,7 +118,15 @@ extension View {
     ///   - endRadius: 放射状グラデーションの終了半径を指定（放射状グラデーション用）
     ///   - endPoint: グラデーションの終了点（線形グラデーション用）
     /// - Returns: 指定されたグラデーションが適用されたビューを返す
-    public func gradientBackground(type: GradientModifier.GradientType, colors: [Color], startPoint: UnitPoint = .top, center: UnitPoint = .center, startRadius: CGFloat = 0, endRadius: CGFloat = 200, endPoint: UnitPoint = .bottom) -> some View {
+    public func gradientBackground(
+        type: GradientModifier.GradientType,
+        colors: [Color],
+        startPoint: UnitPoint = .top,
+        center: UnitPoint = .center,
+        startRadius: CGFloat = 0,
+        endRadius: CGFloat = 200,
+        endPoint: UnitPoint = .bottom
+    ) -> some View {
         self.modifier(GradientModifier(colors: colors, type: type, startPoint: startPoint, center: center, startRadius: startRadius, endRadius: endRadius, endPoint: endPoint))
     }
 
@@ -161,6 +179,41 @@ extension View {
             label: label
         ))
     }
+
+    /// `applyVoiceOver` は、VoiceOverのアクセシビリティ設定を簡単に付与するためのメソッド
+    ///
+    /// - Parameters:
+    ///   - label: このビューにフォーカスが当たったときに読み上げるラベル
+    ///   - hint: 操作を補足説明するヒント文。入力促しやアクション概要など
+    ///   - traits: ボタンや見出しといった特別な役割を示す `AccessibilityTraits`
+    ///   - hidden: `true` にすると、画面に表示はされても音声ガイドからは除外される
+    ///
+    /// - Returns: 設定したアクセシビリティ情報が適用された `View`
+    ///
+    /// - Example:
+    /// ```
+    /// Text("ユーザー名")
+    ///     .applyVoiceOver(
+    ///         label: "ユーザー名入力欄",
+    ///         hint: "ダブルタップで編集できます",
+    ///         traits: .isHeader,
+    ///         hidden: false
+    ///     )
+    /// ```
+    public func applyVoiceOver(
+        label: String? = nil,
+        hint: String? = nil,
+        traits: AccessibilityTraits? = nil,
+        hidden: Bool = false
+    ) -> some View {
+        self.modifier(
+            VoiceOverAccessibilityModifier(label: label,
+                                           hint: hint,
+                                           traits: traits,
+                                           hidden: hidden)
+        )
+    }
+
 
 }
 
