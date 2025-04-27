@@ -1,4 +1,5 @@
 #if canImport(UIKit)
+import UIKit
 public extension UIApplication {
     /// SafeAreaのinsets
     public static var safeAreaInsets: UIEdgeInsets {
