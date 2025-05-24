@@ -10,7 +10,7 @@ import UIKit
 /// contentView全体に SwiftUI Viewを配置し、マージンのないフルサイズ表示を行う
 public final class HostingCollectionViewCell: UICollectionViewCell {
 
-    public private(set) static let reuseIdentifier: String = "HostingCollectionViewCell"
+    public static let reuseIdentifier: String = "HostingCollectionViewCell"
 
     /// セルが再利用されるたびに毎回追加されることを防ぐため、
     /// 初回追加時にインスタンスを保持しておき、次回以降はrootViewの差し替えのみ行う
