@@ -39,12 +39,16 @@ public struct InfiniteCarousel<Item, Cell: View>: UIViewControllerRepresentable 
 
     private let cellViewProvider: (Item) -> Cell
 
+    /// カードの高さ
+    private var cardHeight: CGFloat = 0
+
     // MARK: - ライフサイクル
 
     public init(
         items: [Item],
         selection: Binding<Item>,
         cardWidthRatio: CGFloat = 0.75,
+        cardHeight: CGFloat = 200,
         scrollMode: UICollectionLayoutSectionOrthogonalScrollingBehavior = .groupPagingCentered,
         @ViewBuilder cellView: @escaping (Item) -> Cell
     ) {
@@ -53,6 +57,7 @@ public struct InfiniteCarousel<Item, Cell: View>: UIViewControllerRepresentable 
         self.cardWidthRatio = cardWidthRatio
         self.scrollMode = scrollMode
         self.cellViewProvider = cellView
+        self.cardHeight = cardHeight
     }
 
     // MARK: - UIViewControllerRepresentable
@@ -74,6 +79,9 @@ public struct InfiniteCarousel<Item, Cell: View>: UIViewControllerRepresentable 
     /// - Parameters:
     ///   - vc: 対象のビューコントローラ
     ///   - context: SwiftUI からの更新情報
-    public func updateUIViewController(_ vc: UIViewController, context: Context) { }
+    public func updateUIViewController(_ vc: UIViewController, context: Context) {
+        guard let controller = vc as? InfiniteCarouselController<Item> else { return }
+        controller.updateSelection(selection)
+    }
 }
 #endif

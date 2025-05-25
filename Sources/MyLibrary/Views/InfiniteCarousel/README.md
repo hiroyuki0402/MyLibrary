@@ -27,7 +27,6 @@ InfiniteCarousel(
 }
 ````
 
-
 ### （UIKit セル）
 ```swift
 InfiniteCarouselUIKit(
