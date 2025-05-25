@@ -73,6 +73,8 @@ public final class InfiniteCarouselController<Item: Equatable>: UIViewController
     private var pageWidth: CGFloat = 0
     private var lastLogical: Int = 0
 
+    private var isProgrammaticScroll = false
+    
     // MARK: - 初期化
 
     /// 初期化処理（UIKit セル向け）
