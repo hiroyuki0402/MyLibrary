@@ -233,6 +233,24 @@ public final class InfiniteCarouselController<Item>: UIViewController, UICollect
         onPageChanged(items[logical])
     }
 
+    /// 更新
+    func updateSelection(_ newValue: Item) {
+        guard let index = items.firstIndex(of: newValue) else { return }
+
+        if newValue == items[lastLogical] {
+            return
+        }
+
+        let actualIndex = midIndex + index - (midIndex % items.count)
+        isProgrammaticScroll = true
+        collectionView.scrollToItem(
+            at: IndexPath(item: actualIndex, section: 0),
+            at: .centeredHorizontally,
+            animated: false
+        )
+    }
+
+
     // MARK: - UICollectionViewDataSource
 
     public func collectionView(_ collectionView: UICollectionView,

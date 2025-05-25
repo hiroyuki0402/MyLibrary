@@ -79,6 +79,9 @@ public struct InfiniteCarousel<Item, Cell: View>: UIViewControllerRepresentable 
     /// - Parameters:
     ///   - vc: 対象のビューコントローラ
     ///   - context: SwiftUI からの更新情報
-    public func updateUIViewController(_ vc: UIViewController, context: Context) { }
+    public func updateUIViewController(_ vc: UIViewController, context: Context) {
+        guard let controller = vc as? InfiniteCarouselController<Item> else { return }
+        controller.updateSelection(selection)
+    }
 }
 #endif
