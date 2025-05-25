@@ -62,6 +62,8 @@ public final class InfiniteCarouselController<Item>: UIViewController, UICollect
     /// 中央カードが切り替わったタイミングで呼ばれる
     private let onPageChanged: (Item) -> Void
 
+    /// カードの高さ
+    private var cardHeight: CGFloat = 0
 
     /// Layout Configuration
     private var lastOffsetX: CGFloat = .greatestFiniteMagnitude
@@ -82,18 +84,20 @@ public final class InfiniteCarouselController<Item>: UIViewController, UICollect
     public init(
         items: [Item],
         cardWidthRatio: CGFloat = 0.75,
+        cardHeight: CGFloat = 200,
         loopCount: Int = 1001,
         scrollMode: UICollectionLayoutSectionOrthogonalScrollingBehavior = .paging,
         onPageChanged: @escaping (Item) -> Void = { _ in },
         cellProvider: @escaping CellProvider) {
-        self.items = items
-        self.cardWidthRatio = cardWidthRatio
-        self.loopCount = loopCount
-        self.onPageChanged = onPageChanged
-        self.cellProvider = cellProvider
-        self.scrollMode = scrollMode
-        super.init(nibName: nil, bundle: nil)
-    }
+            self.items = items
+            self.cardWidthRatio = cardWidthRatio
+            self.loopCount = loopCount
+            self.onPageChanged = onPageChanged
+            self.cellProvider = cellProvider
+            self.scrollMode = scrollMode
+            self.cardHeight = cardHeight
+            super.init(nibName: nil, bundle: nil)
+        }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -232,12 +236,12 @@ public final class InfiniteCarouselController<Item>: UIViewController, UICollect
     // MARK: - UICollectionViewDataSource
 
     public func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
+                               numberOfItemsInSection section: Int) -> Int {
         expanded.count
     }
 
     public func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+                               cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = expanded[indexPath.item % items.count]
         return cellProvider(collectionView, indexPath, item)
     }
@@ -272,6 +276,7 @@ extension InfiniteCarouselController {
     convenience init<Content: View>(
         items: [Item],
         cardWidthRatio: CGFloat = 0.75,
+        cardHeight: CGFloat = 200,
         loopCount: Int = 1001,
         scrollMode: UICollectionLayoutSectionOrthogonalScrollingBehavior = .paging,
         onPageChanged: @escaping (Item) -> Void = { _ in },
@@ -280,6 +285,7 @@ extension InfiniteCarouselController {
         self.init(
             items: items,
             cardWidthRatio: cardWidthRatio,
+            cardHeight: cardHeight,
             loopCount: loopCount,
             scrollMode: scrollMode,
             onPageChanged: onPageChanged,

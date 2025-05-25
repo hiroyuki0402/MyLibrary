@@ -41,6 +41,9 @@ public struct InfiniteCarouselUIKit<Item>: UIViewControllerRepresentable {
     /// UIKit ベースのセルを構成するクロージャ（UICollectionView を使用）
     private let cellProvider: (UICollectionView, IndexPath, Item) -> UICollectionViewCell
 
+    /// カードの高さ
+    private var cardHeight: CGFloat = 0
+
     // MARK: - ライフサイクル
 
     /// 初期化処理（UIKit セル向け）
@@ -55,6 +58,7 @@ public struct InfiniteCarouselUIKit<Item>: UIViewControllerRepresentable {
         items: [Item],
         selection: Binding<Item>,
         cardWidthRatio: CGFloat = 0.75,
+        cardHeight: CGFloat = 200,
         scrollMode: UICollectionLayoutSectionOrthogonalScrollingBehavior = .groupPagingCentered,
         cellProvider: @escaping (UICollectionView, IndexPath, Item) -> UICollectionViewCell
     ) {
@@ -63,6 +67,7 @@ public struct InfiniteCarouselUIKit<Item>: UIViewControllerRepresentable {
         self.cardWidthRatio = cardWidthRatio
         self.scrollMode = scrollMode
         self.cellProvider = cellProvider
+        self.cardHeight = cardHeight
     }
 
     // MARK: - UIViewControllerRepresentable
