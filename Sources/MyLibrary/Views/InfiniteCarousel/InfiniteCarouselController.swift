@@ -16,7 +16,7 @@ import UIKit
 /// - Note:
 ///   初回表示時はアイテムリストの中央から開始され、
 ///   スクロール位置が端に近づいた場合には、目に見えないタイミングで中央位置へ再配置される
-public final class InfiniteCarouselController<Item>: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+public final class InfiniteCarouselController<Item: Equatable>: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     // MARK: - Public Types
 

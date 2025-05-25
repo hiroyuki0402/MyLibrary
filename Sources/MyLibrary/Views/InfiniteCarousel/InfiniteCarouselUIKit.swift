@@ -22,7 +22,7 @@ import UIKit
 ///
 /// - Note: 内部では InfiniteCarouselController<Item> を用いて、
 ///         無限スクロール風の動きやスナップ挙動、中心アイテムの自動検知などを実現している
-public struct InfiniteCarouselUIKit<Item>: UIViewControllerRepresentable {
+public struct InfiniteCarouselUIKit<Item: Equatable>: UIViewControllerRepresentable {
 
     // MARK: - プロパティー
 
