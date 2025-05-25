@@ -21,7 +21,7 @@ import UIKit
 /// }
 /// ```
 ///
-public struct InfiniteCarousel<Item, Cell: View>: UIViewControllerRepresentable {
+public struct InfiniteCarousel<Item: Equatable, Cell: View>: UIViewControllerRepresentable {
 
     // MARK: - プロパティー
 
